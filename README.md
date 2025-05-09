@@ -1,24 +1,71 @@
-# README
+# Medium Well the API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Open source project for turn Medium's dirty XML rss feed for @username into neatly parsed json objects. Because we can. Doing our part to tidy up the internet.
 
-Things you may want to cover:
+## Project Goal
 
-* Ruby version
+An API that's lightweight, easy to implent and produces objects for article content from a username feed via **Medium.com**
 
-* System dependencies
+## Tech Stack
 
-* Configuration
+- RoR (API mode)
+- Nokogiri for XML parsing
+- Heroku for Deployment
+- Vercel for Landing Page + Playground
 
-* Database creation
+## How To Use
 
-* Database initialization
+Check out **mediumwell.api** for documentation and demonstration. Note for me: Flesh this out later.
 
-* How to run the test suite
+## Steps to Build
 
-* Services (job queues, cache servers, search engines, etc.)
+### Create a new Rails Project:
 
-* Deployment instructions
+`rails new medium_well_api --api -T`
 
-* ...
+### Used Nokogirl to parse XML
+
+- Article title
+- description
+- Publishing Date
+- Tags
+- Url
+- image?
+
+### designed API endpoint
+
+`GET /api/v1/articles?profile=@username`
+
+### Deployed to Heroku
+
+- Deployed API to Heroku using the Eco DYno plan for cost efficiency
+- Configured environment for fast stateless responses without a database
+
+### Landing Page & Live Playground
+
+- Built landing page \*\*mediumwell.api
+- implemented a live API playground allowing users to test the API direct to the site by inputting a user name
+- Deployed the landing page to Vercel
+
+## Issues & Resolutions
+
+### first big problem
+
+Parsing description without a clear xml indicator. Solution: Sanitize content:encoded and return only the first 250 characters.
+
+![parsing mess](image.png)
+
+```
+def self.sanitize_description(content)
+return '' if content.blank?
+
+      doc = Nokogiri::HTML(content)
+      first_paragraph = doc.at('p')&.text || ''
+      first_paragraph.truncate(250) # Adjust length as needed
+    end
+
+```
+
+created a class for sanitize description paragraph and limit characters.
+
+![tidy parsing achieved](image-1.png)

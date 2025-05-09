@@ -319,6 +319,7 @@ DEPENDENCIES
   brakeman
   debug
   kamal
+  nokogiri
   puma (>= 5.0)
   rails (~> 8.0.2)
   rubocop-rails-omakase
