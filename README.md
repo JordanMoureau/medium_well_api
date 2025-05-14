@@ -69,3 +69,7 @@ return '' if content.blank?
 created a class for sanitize description paragraph and limit characters.
 
 ![tidy parsing achieved](image-1.png)
+
+Note:
+`http://localhost:3000/api/v1/articles?profile=@jordanfromnovember`
+is the correct testing url.
